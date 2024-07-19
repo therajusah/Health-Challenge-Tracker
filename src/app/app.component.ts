@@ -9,5 +9,5 @@ import { UserTableComponent } from './user-table/user-table.component';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Hello, Health Tracker Challenge';
+  title = 'Health Challenge Tracker';
 }

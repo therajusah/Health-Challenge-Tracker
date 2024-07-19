@@ -14,16 +14,17 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'Hello, Health Tracker Challenge' title`, () => {
+  it(`should have the 'Health Challenge Tracker' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('Hello, Health Tracker Challenge');
+    expect(app.title).toEqual('Health Challenge Tracker');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, Health Tracker Challenge');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Health Challenge Tracker');
   });
 });
+ 
