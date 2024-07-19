@@ -1,0 +1,108 @@
+<div class="container p-4 mx-auto">
+  <div class="m-6">
+    <button class="px-4 py-2 font-bold text-blue-600 bg-gray-100 shadow-lg rounded-xl" (click)="showModal = true">
+      Add Workout
+    </button>
+  </div>
+  <div class="flex mb-4">
+    <input type="text" [(ngModel)]="searchQuery" (input)="filterUsers()"
+      placeholder="Search" class="w-2/4 h-12 p-2 mr-4 border border-gray-400 rounded bg-slate-200" />
+    <select [(ngModel)]="filterCategory" (change)="filterUsers()"
+      class="w-2/4 h-12 p-2 border border-gray-400 rounded bg-slate-200">
+      <option value="All">All Workouts</option>
+      <option *ngFor="let type of getUniqueWorkoutTypes()" [value]="type">
+        {{ type }}
+      </option>
+    </select>
+  </div>
+
+  <div class="pt-4 overflow-x-auto shadow-xl">
+    <table class="w-full text-sm border-collapse shadow-md table-auto">
+      <thead>
+        <tr>
+          <th class="p-4 pt-0 pb-3 pl-8 text-lg font-bold text-left border-b border-gray-300">Name</th>
+          <th class="p-4 pt-0 pb-3 pl-8 font-bold text-left border-b border-gray-300">Workouts</th>
+          <th class="p-4 pt-0 pb-3 pl-8 font-bold text-left border-b border-gray-300">Number of Workouts</th>
+          <th class="p-4 pt-0 pb-3 pl-8 font-bold text-left border-b border-gray-300">Total Workout Minutes</th>
+        </tr>
+      </thead>
+      <tbody class="table-auto">
+        <tr *ngFor="let user of filteredUsers">
+          <td class="p-8 border-b border-gray-300">{{ user.name }}</td>
+          <td class="p-8 border-b border-gray-300">
+            <ul>
+              <li *ngFor="let workout of user.workouts" class="px-2">
+                {{ workout.type + "," }}
+              </li>
+            </ul>
+          </td>
+          <td class="p-8 border-b border-gray-300">{{ user.workouts.length }}</td>
+          <td class="p-8 border-b border-gray-300">{{ calculateTotalMinutes(user.workouts) }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="flex items-center justify-center mt-4">
+    <button (click)="changePage(currentPage - 1)" [class.invisible]="currentPage === 1"
+      class="px-4 py-2 text-black bg-gray-300 rounded disabled:opacity-50 ">
+      Previous
+    </button>
+    <div class="flex items-center space-x-2">
+      <span *ngFor="let page of [].constructor(totalPages); let i = index"
+        (click)="changePage(i + 1)" class="px-2 cursor-pointer" [class.font-bold]="currentPage === i + 1">
+        {{ i + 1 }}
+      </span>
+    </div>
+    <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages"
+      class="px-2 py-2 text-black bg-gray-300 rounded disabled:opacity-50">
+      Next
+    </button>
+    <div class="flex m-6">
+      <h4 class="mt-2">Items Per Page:</h4>
+      <select [(ngModel)]="itemsPerPage" (change)="updatePagination()"
+        class="h-10 p-2 ml-2 border border-gray-300 rounded w-1/10">
+        <option *ngFor="let n of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" [value]="n">
+          {{ n }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <div *ngIf="showModal" class="fixed inset-0 z-10 overflow-y-auto">
+    <div class="flex items-center justify-center min-h-screen px-4">
+      <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+        <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+      </div>
+      <div class="overflow-hidden transition-all transform bg-white rounded-lg shadow-xl sm:max-w-lg sm:w-full">
+        <div class="px-4 pt-5 pb-4 bg-white sm:p-6 sm:pb-4">
+          <div class="sm:flex sm:items-start">
+            <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+              <h3 class="text-lg font-medium leading-6 text-gray-900">
+                Add Workout
+              </h3>
+              <div class="mt-2">
+                <input type="text" [(ngModel)]="newUser" placeholder="User Name*"
+                  class="w-full p-2 mb-2 border border-gray-300 rounded-2xl" />
+                <input type="text" [(ngModel)]="newWorkoutType" placeholder="Workout Type*"
+                  class="w-full p-2 mb-2 border border-gray-300 rounded-2xl" />
+                <input type="number" [(ngModel)]="newWorkoutMinutes" placeholder="Workout Minutes*"
+                  class="w-full p-2 mb-2 border border-gray-300 rounded-2xl" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="px-4 py-3 bg-gray-50 sm:px-6 sm:flex sm:flex-row-reverse">
+          <button (click)="addWorkout(); showModal = false"
+            class="inline-flex justify-center w-full px-4 py-2 text-base font-medium text-white bg-green-500 border border-transparent rounded-md shadow-sm hover:bg-green-700 sm:ml-3 sm:w-auto sm:text-sm">
+            Add
+          </button>
+          <button (click)="closeModal()"
+            class="inline-flex justify-center w-full px-4 py-2 mt-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 sm:mt-0 sm:w-auto sm:text-sm">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
