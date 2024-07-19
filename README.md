@@ -14,7 +14,7 @@ This project is a simple Angular application to track users and their workouts.
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/therajusah/Health-Tracker-Challenge.git
+   git clone https://github.com/therajusah/Health-Challenge-Tracker.git
    cd user-workout-tracker
    ```
 2. Install dependencies:
