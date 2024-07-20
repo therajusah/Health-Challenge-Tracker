@@ -15,7 +15,7 @@ This project is a simple Angular application to track users and their workouts.
 1. Clone the repository:
    ```bash
    git clone https://github.com/therajusah/Health-Challenge-Tracker.git
-   cd user-workout-tracker
+   cd Health-Challenge-Tracker
    ```
 2. Install dependencies:
    ```bash
@@ -88,4 +88,4 @@ To view the code coverage report:
    Navigate to the `coverage` folder and open the `index.html` file in your web browser.
 
 4. **Review the Coverage Details:**
-   The coverage report will show a detailed breakdown of the code coverage.
+   The coverage report will show a detailed breakdown of the code coverage. [Click to see coverage report](https://shorturl.at/nh9Ys)
